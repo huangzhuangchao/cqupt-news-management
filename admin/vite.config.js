@@ -55,7 +55,7 @@ export default defineConfig({
         target: 'http://localhost:3000',
         changeOrigin: true,
         secure: false, // 如果是https接口，需要配置这个参数
-        rewrite: (path) => path.replace(/^\/adminapi/, '')
+        // rewrite: (path) => path.replace(/^\/adminapi/, '')
       }
     }
   },

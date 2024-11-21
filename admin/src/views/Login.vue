@@ -97,8 +97,8 @@ const submitForm = () => {
         if (valid) {
             console.log('submit!', loginForm)
             //设置token
-            localStorage.setItem("token", "sonian")
-            axios.get("/users").then(res =>{
+            // localStorage.setItem("token", "sonian")
+            axios.post("/adminapi/user/login", loginForm).then(res =>{
                console.log(res.data );
             })
             router.push("/mainbox")
