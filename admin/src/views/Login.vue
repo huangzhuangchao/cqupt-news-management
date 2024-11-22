@@ -105,10 +105,10 @@ const submitForm = () => {
                console.log(res.data );
 
                 if(res.data.ActionType == "OK"){
-                    console.log(res.data.data);
+                    console.log(res.data.data, 666);
                     //将用户信息放到pinia
                     userInfoStore.changeUserInfo(res.data.data)
-                    router.push("/mainbox")
+                    router.push("/home")
                 }else{
                     ElMessage.error('用户名或密码错误！')
                 }
@@ -137,7 +137,7 @@ const submitForm = () => {
                     <el-input v-model="loginForm.password" type="password" autocomplete="off" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" @click="submitForm(ruleFormRef)">
+                    <el-button type="primary" @click="submitForm()">
                         登录
                     </el-button>
                     <!-- <el-button @click="resetForm(ruleFormRef)">Reset</el-button> -->

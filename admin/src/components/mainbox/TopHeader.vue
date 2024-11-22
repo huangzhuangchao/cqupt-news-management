@@ -11,10 +11,7 @@ const handleCenter = ()=>{
 }
 const exit = ()=>{
     localStorage.removeItem("token")
-    console.log("befor", userInfoStore.userInfo);
     userInfoStore.clearUserInfo();
-    console.log("af", userInfoStore.userInfo)
-    
     router.push('/login')
 }
 </script>

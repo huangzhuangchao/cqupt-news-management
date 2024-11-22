@@ -29,6 +29,27 @@ const UserController = {
                 }
             })
        }
+    },
+    upload: async (req, res)=>{
+        // console.log(req.body, req.file, req.files); 
+        const token = req.headers["authorization"].split(" ")[1]
+        const payload = JWT.verify(token)
+        console.log(payload._id);
+        //调用service存储更新数据
+        const {username, introduction, gender} = req.body
+        const avatar = `/avataruploads/${req.file.filename}`
+        await UserService.upload({_id:payload._id, username, introduction, gender:Number(gender), avatar})
+        
+        res.send({
+            ActionType:"OK",
+            data:{
+                username, 
+                introduction, 
+                gender:Number(gender), 
+                avatar
+            }
+        })
+    
     }
 }
 

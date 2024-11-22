@@ -51,10 +51,10 @@ console.log(route);
                     <el-icon>
                         <Reading />
                     </el-icon>
-                    <span>产品管理</span>
+                    <span>校园周边</span>
                 </template>
-                <el-menu-item index="/product-manage/addproduct">添加产品</el-menu-item>
-                <el-menu-item index="/product-manage/productlist">产品列表</el-menu-item>
+                <el-menu-item index="/product-manage/addproduct">添加物品</el-menu-item>
+                <el-menu-item index="/product-manage/productlist">物品列表</el-menu-item>
             </el-sub-menu>
         </el-menu>
     </el-aside>

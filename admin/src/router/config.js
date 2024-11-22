@@ -6,6 +6,7 @@ import ProductAdd from '@/views/product-manage/ProductAdd.vue'
 import ProductList from '@/views/product-manage/ProductList.vue'
 import NotFound from '@/views/notfound/NotFound.vue'
 import Homepage from '@/views/home/homepage.vue'
+import Center from '@/views/center/Center.vue'
 const routes = [
     // {
     //   path: '/login',
@@ -20,6 +21,10 @@ const routes = [
     {
       path:"/home",
       component:Homepage
+    },
+    {
+      path:"/center",
+      component:Center
     },
     {
       path:"/user-manage/adduser",
@@ -47,7 +52,7 @@ const routes = [
     },
     {
       path:'/',
-      redirect:"/mainbox"
+      redirect:"/home"
     },
     {
        // 将匹配所有内容并将其放在 `route.params.pathMatch` 下
