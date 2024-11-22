@@ -1,14 +1,20 @@
 <script setup>
 import { useCollapsedStore } from '@/stores/collapsedStore'
+import { useUserInfoStore } from '@/stores/userInfoStore';
 import { Menu, User,Fold,Expand} from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 const collapsedStore = useCollapsedStore()
+const userInfoStore = useUserInfoStore()
 const router = useRouter()
 const handleCenter = ()=>{
     router.push('/center')
 }
 const exit = ()=>{
     localStorage.removeItem("token")
+    console.log("befor", userInfoStore.userInfo);
+    userInfoStore.clearUserInfo();
+    console.log("af", userInfoStore.userInfo)
+    
     router.push('/login')
 }
 </script>
@@ -27,7 +33,7 @@ const exit = ()=>{
             <span>重邮新闻管理发布系统</span>
         </div>
         <div class="right">
-            <span>欢迎您：骚年</span>
+            <span>欢迎您: {{ userInfoStore.userInfo.username }}</span>
             <el-dropdown>
                 <span class="el-dropdown-link">
                     <el-icon :size="18" color="white"><User /></el-icon>
@@ -63,6 +69,9 @@ const exit = ()=>{
         }
         .right span{
             margin-left: 3px;
+        }
+        .el-dropdown-link:focus-visible{
+            outline:none
         }
     }
 </style>

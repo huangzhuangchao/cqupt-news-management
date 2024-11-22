@@ -5,11 +5,15 @@ import App from './App.vue'
 import router from './router'
 // import ElementPlus from 'element-plus'
 // import 'element-plus/dist/index.css'
+//引入Elmessage和Elloading的css样式文件
+// import 'element-plus/theme-chalk/el-loading.css';
+import 'element-plus/theme-chalk/el-message.css';
 
 import Particles from "@tsparticles/vue3";
 import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
 //import { loadSlim } from "tsparticles-slim"; // if you are going to use `loadSlim`, install the "tsparticles-slim" package too.
-
+import '@/util/axios.config.js'
+// import '@/util/ttt.js'
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

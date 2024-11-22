@@ -5,6 +5,7 @@ import NewsList from '@/views/news-manage/NewsList.vue'
 import ProductAdd from '@/views/product-manage/ProductAdd.vue'
 import ProductList from '@/views/product-manage/ProductList.vue'
 import NotFound from '@/views/notfound/NotFound.vue'
+import Homepage from '@/views/home/homepage.vue'
 const routes = [
     // {
     //   path: '/login',
@@ -16,6 +17,10 @@ const routes = [
     //   name: 'mainbox',
     //   component: MainBox
     // },
+    {
+      path:"/home",
+      component:Homepage
+    },
     {
       path:"/user-manage/adduser",
       component:UserAdd

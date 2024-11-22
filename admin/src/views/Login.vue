@@ -3,6 +3,9 @@ import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import logo from '@/assets/images/logo.png'
+import { ElMessage } from 'element-plus'
+import { useUserInfoStore } from '@/stores/userInfoStore';
+const userInfoStore = useUserInfoStore()
 //配置particles粒子特效
 const options = {
     background: {
@@ -100,14 +103,23 @@ const submitForm = () => {
             // localStorage.setItem("token", "sonian")
             axios.post("/adminapi/user/login", loginForm).then(res =>{
                console.log(res.data );
+
+                if(res.data.ActionType == "OK"){
+                    console.log(res.data.data);
+                    //将用户信息放到pinia
+                    userInfoStore.changeUserInfo(res.data.data)
+                    router.push("/mainbox")
+                }else{
+                    ElMessage.error('用户名或密码错误！')
+                }
             })
-            router.push("/mainbox")
-        } else {
+        } else { 
             console.log('error submit!', fields)
         }
     })
 
 }
+
 </script>
 
 <template>

@@ -3,10 +3,10 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const UserRouter = require("./routes/admin/UserRouter")
+const UserRouter = require("./routes/admin/UserRouter");
+const JWT = require('./util/JWT');
 var app = express();
 
 // view engine setup
@@ -21,6 +21,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+
+app.use((req, res, next)=>{
+  //如果token有效就next，否则返回401
+  console.log(req.url);
+  if("/adminapi/user/login" == req.url){
+    next()
+    return;
+  }
+  const token = req.headers["authorization"].split(" ")[1]
+  if(token){
+    const payload = JWT.verify(token)
+    if(payload){
+      const newToken = JWT.generate({
+        _id:payload._id,
+        username:payload.username
+      }, "2h")
+      res.header("Authorization", newToken)
+      next()
+    }else{
+      res.status(401).send({
+        errCode:"-1",
+        errorInfo:"token已过期"
+      })
+    }
+  }
+})
+
 //使用UserRouter
 app.use(UserRouter)
 
