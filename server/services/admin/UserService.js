@@ -14,6 +14,13 @@ const UserService = {
             username, introduction, gender
         })
        }
-    }
+    },
+    add: async ({username, introduction, gender, password, role, avatar}) =>{
+        if(avatar){
+         return UserModel.create({username, introduction, gender, password, role, avatar})
+        }else{          
+         return UserModel.create({username, introduction, gender, password, role})
+        }
+     }
 }
 module.exports = UserService

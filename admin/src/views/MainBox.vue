@@ -11,3 +11,9 @@ import TopHeader from '@/components/mainbox/TopHeader.vue';
       </el-container>
     </el-container>
 </template>
+<style scoped lang="scss">
+.el-main{
+  overflow: auto;
+  height: calc(100vh - 60px);
+}
+</style>
