@@ -108,6 +108,7 @@ const submitForm = () => {
                     console.log(res.data.data, 666);
                     //将用户信息放到pinia
                     userInfoStore.changeUserInfo(res.data.data)
+                    ElMessage.success("登录成功")
                     router.push("/home")
                 }else{
                     ElMessage.error('用户名或密码错误！')
@@ -117,7 +118,6 @@ const submitForm = () => {
             console.log('error submit!', fields)
         }
     })
-
 }
 
 </script>

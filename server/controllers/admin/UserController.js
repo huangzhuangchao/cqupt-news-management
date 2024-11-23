@@ -37,19 +37,23 @@ const UserController = {
         console.log(payload._id);
         //调用service存储更新数据
         const {username, introduction, gender} = req.body
-        const avatar = `/avataruploads/${req.file.filename}`
-        await UserService.upload({_id:payload._id, username, introduction, gender:Number(gender), avatar})
-        
-        res.send({
+        const result = {
             ActionType:"OK",
             data:{
                 username, 
                 introduction, 
                 gender:Number(gender), 
-                avatar
             }
-        })
-    
+        }
+        //单独判断一下是否有上传头像文件
+        if(req.file){
+            const avatar = `/avataruploads/${req.file.filename}`
+            await UserService.upload({_id:payload._id, username, introduction, gender:Number(gender), avatar})    
+            result.data.avatar = avatar
+        }else{
+            await UserService.upload({_id:payload._id, username, introduction, gender:Number(gender)})  
+        }
+        res.send(result)  
     }
 }
 

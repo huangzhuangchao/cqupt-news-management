@@ -2,12 +2,12 @@
 import { useUserInfoStore } from '@/stores/userInfoStore';
 import { storeToRefs } from 'pinia';
 import { ref, computed, reactive, onMounted } from 'vue';
-import { Plus } from '@element-plus/icons-vue';
-import axios from 'axios';
 import { ElMessage } from 'element-plus';
+import { upload } from '@/util/upload';
+import Upload from '@/components/upload/Upload.vue';
 const userInfoStore = useUserInfoStore()
 const avatarUrl = computed(() => {
-    return userInfoStore.userInfo.avatar ? `http://localhost:3000/`+ userInfoStore.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+    return userInfoStore.userInfo.avatar ? `http://localhost:3000/` + userInfoStore.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 })
 const userFormRef = ref()
 const { username, gender, introduction, avatar } = userInfoStore.userInfo
@@ -30,38 +30,26 @@ const options = [{ value: 0, label: "保密" }, { value: 1, label: "男" }, { va
 //每次选择完图片之后的回调
 const handleChange = (file) => {
     console.log(file);
-    userForm.avatar = URL.createObjectURL(file.raw)
-    userForm.file = file.raw
+    userForm.avatar = URL.createObjectURL(file)
+    userForm.file = file
     console.log(userForm.avatar);
-    
+
 }
 //提交更新
 const submitForm = () => {
-    userFormRef.value.validate((valid) => {
+    userFormRef.value.validate(async (valid) => {
         if (valid) {
             console.log("submit", userForm);
-            const  formData = new FormData();
-            for(let i in userForm){
-                formData.append(i, userForm[i])
+            const res = await upload("/adminapi/user/upload", userForm)
+            if (res.ActionType === "OK") {
+                // console.log(res.data.data.username);
+                userInfoStore.changeUserInfo(res.data)
+                ElMessage.success("更新成功")
             }
-            axios.post("/adminapi/user/upload", formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }).then((res)=>{
-                if(res.data.ActionType === "OK"){
-                    // console.log(res.data.data.username);
-                    userInfoStore.changeUserInfo(res.data.data)
-                    ElMessage.success("更新成功")
-                }
-            })
         }
     })
 }
-//用于上传头像后，显示头像
-const uploadAvatar = computed(()=>{
-    return userForm.avatar.includes("blob") ? userForm.avatar : `http://localhost:3000/` + userForm.avatar
-})
+
 </script>
 
 <template>
@@ -91,7 +79,7 @@ const uploadAvatar = computed(()=>{
                         </div>
                     </template>
                     <el-form ref="userFormRef" :model="userForm" :rules="userRules" label-width="auto"
-                        class="demo-ruleForm" :size="formSize" status-icon>
+                        class="demo-ruleForm" status-icon>
                         <el-form-item label="用户名" prop="username">
                             <el-input v-model="userForm.username" />
                         </el-form-item>
@@ -106,14 +94,7 @@ const uploadAvatar = computed(()=>{
                                 maxlength="70" show-word-limit type="textarea" placeholder="人生处处是风景~" />
                         </el-form-item>
                         <el-form-item label="头像" prop="avatar">
-                            <el-upload class="avatar-uploader"
-                                action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-                                :show-file-list="false" :auto-upload="false" :on-change="handleChange">
-                                <img v-if="userForm.avatar" :src="uploadAvatar" class="avatar" />
-                                <el-icon v-else class="avatar-uploader-icon">
-                                    <Plus />
-                                </el-icon>
-                            </el-upload>
+                            <Upload :avatar="userForm.avatar" @file-change="handleChange"></Upload>
                         </el-form-item>
                         <el-form-item>
                             <el-button type="primary" @click="submitForm()">
@@ -136,30 +117,5 @@ const uploadAvatar = computed(()=>{
     }
 }
 
-.avatar-uploader .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-}
 
-.avatar-uploader :deep(.el-upload) {
-    border: 1px dashed var(--el-border-color);
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: var(--el-transition-duration-fast);
-}
-
-.avatar-uploader :deep(.el-upload:hover) {
-    border-color: var(--el-color-primary);
-}
-
-:deep(.el-icon.avatar-uploader-icon) {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    text-align: center;
-}
 </style>
