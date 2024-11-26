@@ -1,11 +1,21 @@
 <script setup>
 import { HomeFilled, Avatar, UserFilled, MessageBox, Reading } from '@element-plus/icons-vue';
-import {useCollapsedStore} from '@/stores/collapsedStore'
+import {useCollapsedStore} from '@/stores/collapsedStore';
 import { useRoute } from 'vue-router';
+import { useUserInfoStore } from '@/stores/userInfoStore';
 const collapsedStore = useCollapsedStore()
+const userInfoStore = useUserInfoStore()
 const route = useRoute()
-console.log(route);
 
+console.log(route);
+const vAdmin = {
+    mounted(el){
+        
+       if(userInfoStore.userInfo.role !== 1){
+            el.parentNode.removeChild(el)
+       }
+    }
+}
 </script>
 <template>
     <el-aside width="auto">
@@ -26,7 +36,7 @@ console.log(route);
                 </el-icon>
                 <span>个人中心</span>
             </el-menu-item>
-            <el-sub-menu index="/user-manage">
+            <el-sub-menu index="/user-manage" v-admin>
                 <template #title>
                     <el-icon>
                         <UserFilled />

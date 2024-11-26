@@ -5,6 +5,8 @@ import axios from 'axios';
 import logo from '@/assets/images/logo.png'
 import { ElMessage } from 'element-plus'
 import { useUserInfoStore } from '@/stores/userInfoStore';
+import { useGetterRouterSrore } from '@/stores/counter';
+
 const userInfoStore = useUserInfoStore()
 //配置particles粒子特效
 const options = {
@@ -108,7 +110,9 @@ const submitForm = () => {
                     console.log(res.data.data, 666);
                     //将用户信息放到pinia
                     userInfoStore.changeUserInfo(res.data.data)
+                    useGetterRouterSrore().changeGetterRouter(false)
                     ElMessage.success("登录成功")
+
                     router.push("/home")
                 }else{
                     ElMessage.error('用户名或密码错误！')

@@ -21,6 +21,15 @@ const UserService = {
         }else{          
          return UserModel.create({username, introduction, gender, password, role})
         }
-     }
+     },
+    userList: async ({_id}) =>{
+       return _id ?  UserModel.find({_id},["username", "role", "password"]) : UserModel.find({},["username", "role", "avatar", "introduction", "gender"])
+    },
+    delUser: async ({_id})=>{
+        return UserModel.deleteOne({_id})
+    },
+    putUser: async ({_id, username, password, role})=>{
+        return UserModel.updateOne({_id}, {username, password, role})
+    }
 }
 module.exports = UserService

@@ -10,7 +10,7 @@ const UserController = {
                 error:"用户名或密码错误"
             })
        }else{
-        console.log(result[0]);
+            //console.log(result[0]);
         
             // 生成token，设置在header中 现已改到app中间件中
             const token = JWT.generate({
@@ -64,6 +64,30 @@ const UserController = {
         await UserService.add({username, introduction, gender:Number(gender), password, role:Number(role), avatar})
         res.send({
             ActionType:"OK",
+        })
+    },
+
+    userList: async (req, res) =>{
+        const result = await UserService.userList({_id:req.params.id})
+        res.send({
+            ActionType:"OK",
+            data:result
+        })
+    },
+    delUser: async (req, res) =>{
+        const result = await UserService.delUser({_id:req.params.id})
+        // console.log(result);
+        
+        res.send({
+            ActionType:"OK",
+        })
+    },
+    putUser: async (req, res) =>{
+        // const {username, password, role} = req.body
+        const result = await UserService.putUser(req.body)
+        // console.log(result);    
+        res.send({
+            ActionType:"OK"
         })
     }
 }

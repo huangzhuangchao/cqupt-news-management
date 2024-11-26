@@ -2,6 +2,7 @@
 import { useCollapsedStore } from '@/stores/collapsedStore'
 import { useUserInfoStore } from '@/stores/userInfoStore';
 import { Menu, User,Fold,Expand} from '@element-plus/icons-vue';
+import { useGetterRouterSrore } from '@/stores/counter';
 import { useRouter } from 'vue-router';
 const collapsedStore = useCollapsedStore()
 const userInfoStore = useUserInfoStore()

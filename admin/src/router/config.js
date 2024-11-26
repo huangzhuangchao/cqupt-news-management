@@ -28,11 +28,13 @@ const routes = [
     },
     {
       path:"/user-manage/adduser",
-      component:UserAdd
+      component:UserAdd,
+      requireIsAdmin:true //加个字段，表示管理员才行
     },
     {
       path:"/user-manage/userlist",
-      component:UserList
+      component:UserList,
+      requireIsAdmin:true //加个字段，表示管理员才行
     },
     {
       path:"/news-manage/addnews",
@@ -44,11 +46,12 @@ const routes = [
     },
     {
       path:"/product-manage/addproduct",
-      component:ProductAdd
+      component:ProductAdd,
     },
     {
       path:"/product-manage/productlist",
-      component:ProductList
+      component:ProductList,
+      requireIsAdmin:true
     },
     {
       path:'/',
