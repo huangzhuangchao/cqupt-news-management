@@ -18,8 +18,21 @@ const NewsController = {
         res.send({
             ActionType:"OK"
         })
+    },
+    getlist: async(req, res)=>{
+        const result = await NewsService.getlist()
+        res.send({
+            ActionType:"OK",
+            data:result
+        })
+    },
+    publish: async (req,res)=>{
+        await NewsService.publish({...req.body, editTime: new Date()})
+        // console.log({...req.body, editTime: new Date()});
+        res.send({
+            ActionType:"OK",
+        })
     }
-
 }
 
 module.exports = NewsController
