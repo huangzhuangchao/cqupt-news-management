@@ -1,11 +1,13 @@
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import Editor from '@/components/editor/Editor.vue';
 import Upload from '@/components/upload/Upload.vue';
 import { upload } from '@/util/upload';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { ElMessage } from 'element-plus';
+import axios from 'axios';
 const router = useRouter()
+const route = useRoute()
 const newsForm = reactive({
     title: "",
     content: "",
@@ -46,26 +48,37 @@ const handleChange = (file) => {
     newsForm.cover = URL.createObjectURL(file)
     newsForm.file = file
     console.log(newsForm.cover);
-
 }
 const submitForm = () => {
     newsFormRef.value.validate(async (valid) => {
         if (valid) {
             console.log(newsForm);
-            const res = await upload("/adminapi/news/add", newsForm)
-            console.log(res);
+            const res = await upload("/adminapi/news/list", newsForm)
+            // console.log(res);
+            
 
-            // router.push('/news-manage/newslist')
+            router.back()
             ElMessage({
-                message: '创建成功',
+                message: '修改成功',
                 type: 'success',
             })
         }
     })
 }
+const goBack = ()=>{
+    router.back()
+}
+const showEditor = ref(false) //万一富文本创建过早，数据还没返回，就导致内容里面是空的
+onMounted( async ()=>{
+    // console.log(route.params.id);
+    const res = await axios.get(`/adminapi/news/list/${route.params.id}`)
+    // console.log(res.data.data[0]);
+    Object.assign(newsForm, res.data.data[0])
+    showEditor.value = true
+})
 </script>
 <template>
-    <el-page-header icon="" title="新闻管理" content="创建新闻" />
+    <el-page-header title="新闻管理" content="修改新闻" @back="goBack()" />
     <el-form ref="newsFormRef" :model="newsForm" :rules="newsRules" label-width="auto" class="demo-ruleForm"
         status-icon>
         <el-form-item label="标题" prop="title">
@@ -73,7 +86,7 @@ const submitForm = () => {
         </el-form-item>
         <el-form-item label="内容" prop="content">
             <!-- <el-input v-model="newsForm.content" type="password" show-password /> -->
-            <Editor @event="editHandler"></Editor>
+            <Editor @event="editHandler" :content="newsForm.content" v-if="showEditor"></Editor>
         </el-form-item>
         <el-form-item label="类别" prop="category">
             <el-select v-model="newsForm.category" placeholder="--请选择类别--">
@@ -84,7 +97,7 @@ const submitForm = () => {
             <Upload :avatar="newsForm.cover" @file-change="handleChange"></Upload>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm()">创建新闻</el-button>
+            <el-button type="primary" @click="submitForm()">更新新闻</el-button>
         </el-form-item>
     </el-form>
 </template>

@@ -19,8 +19,8 @@ const NewsController = {
             ActionType:"OK"
         })
     },
-    getlist: async(req, res)=>{
-        const result = await NewsService.getlist()
+    getlist: async(req, res)=>{        
+        const result = await NewsService.getlist({_id:req.params.id})
         res.send({
             ActionType:"OK",
             data:result
@@ -31,6 +31,30 @@ const NewsController = {
         // console.log({...req.body, editTime: new Date()});
         res.send({
             ActionType:"OK",
+        })
+    },
+    delList: async (req, res)=>{
+        await NewsService.delList({_id:req.params.id})
+        res.send({
+            ActionType:"OK",
+        })
+    },
+    updateList: async (req,res)=>{
+        const cover = req.file ? `/newsuploads/${req.file.filename}` : ""
+        console.log(req.body);
+        
+        const {title, content, category, isPublish, _id} = req.body
+        await NewsService.updateList({
+            _id,
+            title, 
+            content, 
+            category:Number(category), 
+            isPublish:Number(isPublish),
+            cover,
+            editTime:new Date()
+        })
+        res.send({
+            ActionType:"OK"
         })
     }
 }

@@ -1,4 +1,4 @@
-const NewsModel = require("../../models/NewsModel")
+const ProductModel = require("../../models/ProductModel")
 
 const NewsService = {
     add: async ({ title, content, category, isPublish, cover, editTime }) => {
