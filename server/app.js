@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 const UserRouter = require("./routes/admin/UserRouter");
 const JWT = require('./util/JWT');
 const NewsRouter = require('./routes/admin/NewsRouter');
+const ProductRouter = require("./routes/admin/ProductRouter")
 var app = express();
 
 // view engine setup
@@ -54,6 +55,8 @@ app.use((req, res, next)=>{
 app.use(UserRouter)
 //使用NewsRouter
 app.use(NewsRouter)
+//ProductRouter路由
+app.use(ProductRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

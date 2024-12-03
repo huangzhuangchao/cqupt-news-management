@@ -36,7 +36,7 @@ const submitForm = () => {
         if (valid) {
             console.log(productForm);
             const res = await upload("/adminapi/product/add", productForm)
-            // console.log(res);
+            console.log(res);
 
             router.push('/product-manage/productlist')
             ElMessage({

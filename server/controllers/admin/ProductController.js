@@ -1,17 +1,18 @@
+// const ProductService = require("../../services/admin/ProductService")
+
 const ProductService = require("../../services/admin/ProductService")
 
 const ProductController = {
     add: async (req, res) =>{
         console.log(req.file, req.body);
-        const cover = req.file ? `/newsuploads/${req.file.filename}` : ""
+        const cover = req.file ? `/productuploads/${req.file.filename}` : ""
         console.log(req.body);
         
-        const {title, content, category, isPublish} = req.body
+        const {title, introduction, detail} = req.body
         await ProductService.add({
             title, 
-            content, 
-            category:Number(category), 
-            isPublish:Number(isPublish),
+            introduction, 
+            detail,
             cover,
             editTime:new Date()
         })
