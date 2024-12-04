@@ -8,6 +8,7 @@ import NotFound from '@/views/notfound/NotFound.vue'
 import Homepage from '@/views/home/homepage.vue'
 import Center from '@/views/center/Center.vue'
 import NewsEdit from '@/views/news-manage/NewsEdit.vue'
+import ProductEdit from '@/views/product-manage/ProductEdit.vue'
 const routes = [
     // {
     //   path: '/login',
@@ -56,6 +57,11 @@ const routes = [
     {
       path:"/product-manage/productlist",
       component:ProductList,
+      // requireIsAdmin:true
+    },
+    {
+      path:"/product-manage/editproduct/:id",
+      component:ProductEdit,
       // requireIsAdmin:true
     },
     {

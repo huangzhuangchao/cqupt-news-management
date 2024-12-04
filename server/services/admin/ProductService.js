@@ -7,11 +7,25 @@ const ProductService = {
     },
     getlist: async ({ _id }) => {
         if (_id) {
-            return NewsModel.find({ _id })
+            return ProductModel.find({ _id })
         } else {
-            return NewsModel.find({})
+            return ProductModel.find({})
         }
     },
+    dellist: async ({_id}) =>{
+        return ProductModel.deleteOne({_id})
+    },
+    updateList : async({ _id, title, introduction, detail, cover, editTime}) =>{
+        if (cover) {
+            return ProductModel.updateOne({ _id }, {
+                title, introduction, detail, cover, editTime
+            })
+        } else {
+            return ProductModel.updateOne({ _id }, {
+                title, introduction, detail, cover, editTime
+            })
+        }
+    }
 
 }
 

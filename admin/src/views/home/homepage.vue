@@ -1,6 +1,7 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useUserInfoStore } from '@/stores/userInfoStore';
+import axios from 'axios';
 const userInfoStore = useUserInfoStore()
 
 const avatarUrl = computed(() => {
@@ -18,6 +19,17 @@ const welcomText = computed(() => {
 
 //更优美的写法：
 // const avatarUrl = computed(() => userInfoStore.userInfo.avatar || 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
+const loopData = ref([])
+
+onMounted(async ()=>{
+    const res = await axios.get("/adminapi/product/list")
+    console.log(res.data);
+    loopData.value = res.data.data
+    // console.log(tableData.value);
+    console.log(loopData.value[0].cover);
+    
+})
+
 </script>
 
 <template>
@@ -51,11 +63,13 @@ const welcomText = computed(() => {
                 </div>
             </template>
             <!-- 走马灯 -->
-            <el-carousel :interval="4000" type="card" height="200px">
-                <el-carousel-item v-for="item in 6" :key="item">
-                    <h3 text="2xl" justify="center">{{ item }}</h3>
+            <el-carousel :interval="4000" type="card" height="400" v-if="loopData.length">
+                <el-carousel-item v-for="item in loopData" :key="item._id">
+                    <div :style="{backgroundImage:`url(http://localhost:3000${item.cover})`, backgroundSize:'cover'}">
+                        <h3  justify="center">{{ item.title }}</h3>
+                    </div>
                 </el-carousel-item>
-            </el-carousel>
+            </el-carousel> 
         </el-card>
     </div>
 
@@ -67,9 +81,9 @@ const welcomText = computed(() => {
 }
 
 .el-carousel__item h3 {
-    color: #475669;
+    color: #dde2e7;
     opacity: 0.75;
-    line-height: 200px;
+    line-height: 400px;
     margin: 0;
     text-align: center;
 }
@@ -81,4 +95,5 @@ const welcomText = computed(() => {
 .el-carousel__item:nth-child(2n + 1) {
     background-color: #d3dce6;
 }
+
 </style>
