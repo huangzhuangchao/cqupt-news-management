@@ -8,6 +8,7 @@ var usersRouter = require('./routes/users');
 const UserRouter = require("./routes/admin/UserRouter");
 const JWT = require('./util/JWT');
 const NewsRouter = require('./routes/admin/NewsRouter');
+const webNewsRouter = require('./routes/web/NewsRouter');
 const ProductRouter = require("./routes/admin/ProductRouter")
 var app = express();
 
@@ -24,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-
+app.use(webNewsRouter)
 app.use((req, res, next)=>{
   //如果token有效就next，否则返回401
   console.log(req.url);
@@ -57,6 +58,8 @@ app.use(UserRouter)
 app.use(NewsRouter)
 //ProductRouter路由
 app.use(ProductRouter)
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
