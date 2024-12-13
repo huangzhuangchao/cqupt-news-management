@@ -5,6 +5,8 @@ import { computed, onMounted, ref } from 'vue';
 import moment from 'moment';
 import axios from 'axios';
 import _ from 'lodash'
+import { useRouter } from 'vue-router';
+const router = new useRouter()
 const searchText = ref("")
 const visible = ref(false)
 const newsList = ref([])
@@ -43,6 +45,11 @@ const activeName = ref(1)
 const tabnews = computed(() => {
     return _.groupBy(newsList.value, item => item.category)
 })
+const handleChangepage = (id) =>{
+    console.log(666, id);
+    router.push(`/news/${id}`)
+    
+}
 </script>
 <template>
     <div class="container">
@@ -57,10 +64,10 @@ const tabnews = computed(() => {
                 </template>
 
                 <div v-if="searchNews.length">
-                    <div v-for="data in searchNews" :key="data._id" class="search-item">{{ data.title }}</div>
+                    <div v-for="data in searchNews" :key="data._id" class="search-item" @click="handleChangepage(data._id)">{{ data.title }}</div>
                 </div>
                 <div v-else>
-                    <el-empty description="暂无新闻" image-size="50" />
+                    <el-empty description="暂无新闻" :image-size="50" />
                 </div>
             </el-popover>
         </div>
@@ -68,7 +75,7 @@ const tabnews = computed(() => {
             <el-row :gutter="20">
                 <el-col :span="6" v-for="item in topNewsList" :key="item._id">
                     <!-- {{ item.title }} -->
-                    <el-card style="max-width: 480px; " shadow="hover">
+                    <el-card style="max-width: 480px; " shadow="hover" @click="handleChangepage(item._id)" >
                         <template #footer>
                             <div class="title">{{ item.title }}</div>
                             <div> <time class="time">{{ whichTime(item.editTime) }}</time></div>
@@ -79,13 +86,13 @@ const tabnews = computed(() => {
                 </el-col>
             </el-row>
         </div>
-        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick"
+        <el-tabs v-model="activeName" class="demo-tabs" 
             style="margin-left: 20px; margin-right: 20px">
             <el-tab-pane v-for="item in tabList" :key="item.name" :label="item.label" :name="item.name">
                 <el-row :gutter="20">
                     <el-col :span="18">
                         <div v-for="data in tabnews[item.name]" :key="data._id" style="height: 150px;">
-                            <el-card shadow="hover">
+                            <el-card shadow="hover" @click="handleChangepage(data._id)" >
                                 <div class="tabnews">
                                     <div class="tabimg"
                                         :style="{ backgroundImage: `url(http://localhost:3000${data.cover})` }">

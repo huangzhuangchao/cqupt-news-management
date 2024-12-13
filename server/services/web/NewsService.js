@@ -32,6 +32,10 @@ const NewsService = {
                 title, content, category, isPublish, editTime
             })
         }
+    },
+    getTopList: async ({limit}) =>{
+        // console.log(limit);
+        return NewsModel.find({isPublish:1}).sort({editTime:-1}).limit(limit)
     }
 }
 

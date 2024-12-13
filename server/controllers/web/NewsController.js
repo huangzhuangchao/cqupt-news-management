@@ -56,6 +56,14 @@ const NewsController = {
         res.send({
             ActionType:"OK"
         })
+    },
+    getTopList: async (req, res) =>{
+        // console.log(req.query.limit);
+        const data = await NewsService.getTopList({limit: req.query.limit})
+        res.send({
+            ActionType:"OK",
+            data:data
+        })
     }
 }
 
