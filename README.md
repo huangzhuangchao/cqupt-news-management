@@ -40,7 +40,8 @@ npm run start
 
 ![image](https://github.com/user-attachments/assets/972df24d-aab6-4b1b-9234-a0bf70b2c14d)
 
-![image](https://github.com/user-attachments/assets/9e748016-23bd-4b0f-81d4-4b8f016c6e0c)
+![image](https://github.com/user-attachments/assets/bb9246a0-7697-4004-8a91-7a84788838a8)
+
 
 ### 💖 最后，感谢kerwin老师！
 
