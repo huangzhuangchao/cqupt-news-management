@@ -10,6 +10,7 @@ const JWT = require('./util/JWT');
 const NewsRouter = require('./routes/admin/NewsRouter');
 const webNewsRouter = require('./routes/web/NewsRouter');
 const ProductRouter = require("./routes/admin/ProductRouter")
+const webProductRouter = require("./routes/web/ProductRouter")
 var app = express();
 
 // view engine setup
@@ -26,6 +27,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 app.use(webNewsRouter)
+app.use(webProductRouter)
 app.use((req, res, next)=>{
   //如果token有效就next，否则返回401
   console.log(req.url);

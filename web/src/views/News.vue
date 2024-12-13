@@ -108,7 +108,7 @@ const handleChangepage = (id) =>{
                     <el-col :span="6">
                         <el-timeline>
                             <el-timeline-item v-for="(data, index) in tabnews[item.name]" :key="index"
-                                :timestamp="data.editTime">
+                                :timestamp="whichTime(data.editTime)">
                                 {{ data.title }}
                             </el-timeline-item>
                         </el-timeline>

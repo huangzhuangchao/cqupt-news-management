@@ -12,6 +12,7 @@ const whichTime = time => {
     return moment(time).format("YYYY/MM/DD HH:mm")
 }
 watchEffect(async () => {
+    // if(!route.params.id) return 
     const res = await axios.get(`/webapi/news/list/${route.params.id}`)
     const topnews = await axios.get(`/webapi/news/toplist?limit=4`)
     // console.log(res.data);
