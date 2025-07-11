@@ -13,6 +13,4 @@ UserRouter.get("/adminapi/user/list/:id", UserController.userList)
 UserRouter.put("/adminapi/user/list/:id", UserController.putUser)
 
 
-
-
 module.exports = UserRouter

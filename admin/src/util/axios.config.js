@@ -1,4 +1,5 @@
 import axios from "axios";
+// axios.defaults.baseURL = 'http://1.94.6.107:3000';
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么

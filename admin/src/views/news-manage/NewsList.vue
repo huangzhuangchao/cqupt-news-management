@@ -35,7 +35,6 @@ const handleSwitchChange = async (item) => {
 const handlePreview = (item) => {
     prewiveData.value = item
     dialogTableVisible.value = true
-
 }
 //点击删除操作
 const handleDelete = async (item)=>{

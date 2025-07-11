@@ -20,7 +20,7 @@ const handleSelect = (key, keyPath) => {
         <el-menu-item index="/news">校园新闻</el-menu-item>
         <el-menu-item index="/product">校园周边</el-menu-item>
     </el-menu>
-    <div class="right">校园门户官网</div>
+    <div class="right"><a href="http://1.94.6.107:5173/login">后台管理</a></div>
     </div>
 </template>
 <style scoped>

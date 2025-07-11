@@ -1,5 +1,5 @@
 <script setup>
-import bg from '@/assets/bg1.jpg'
+import bg from '@/assets/bg1.webp'
 import { Search } from '@element-plus/icons-vue';
 import { computed, onMounted, ref } from 'vue';
 import moment from 'moment';
@@ -16,8 +16,6 @@ onMounted(async () => {
     newsList.value = res.data.data
     console.log(newsList.value);
     // console.log(_.groupBy(newsList.value, item=>item.category));
-
-
 })
 moment.locale("zh-CN")
 const whichTime = time => {
@@ -80,7 +78,7 @@ const handleChangepage = (id) =>{
                             <div class="title">{{ item.title }}</div>
                             <div> <time class="time">{{ whichTime(item.editTime) }}</time></div>
                         </template>
-                        <div class="image" :style="{ backgroundImage: `url(http://localhost:3000${item.cover})` }">
+                        <div class="image" :style="{ backgroundImage: `url(http://1.94.6.107:3000${item.cover})` }">
                         </div>
                     </el-card>
                 </el-col>
@@ -95,7 +93,7 @@ const handleChangepage = (id) =>{
                             <el-card shadow="hover" @click="handleChangepage(data._id)" >
                                 <div class="tabnews">
                                     <div class="tabimg"
-                                        :style="{ backgroundImage: `url(http://localhost:3000${data.cover})` }">
+                                        :style="{ backgroundImage: `url(http://1.94.6.107:3000${data.cover})` }">
                                     </div>
                                     <div class="right">
                                         <div class="title">{{ data.title }}</div>

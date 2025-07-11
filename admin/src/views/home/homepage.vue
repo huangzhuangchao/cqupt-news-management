@@ -5,7 +5,7 @@ import axios from 'axios';
 const userInfoStore = useUserInfoStore()
 
 const avatarUrl = computed(() => {
-    return userInfoStore.userInfo.avatar ? `http://localhost:3000/`+ userInfoStore.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+    return userInfoStore.userInfo.avatar ? `http://1.94.6.107:3000/`+ userInfoStore.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 })
 
 const welcomText = computed(() => {

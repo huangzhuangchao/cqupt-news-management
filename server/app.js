@@ -11,8 +11,17 @@ const NewsRouter = require('./routes/admin/NewsRouter');
 const webNewsRouter = require('./routes/web/NewsRouter');
 const ProductRouter = require("./routes/admin/ProductRouter")
 const webProductRouter = require("./routes/web/ProductRouter")
+const cors = require('cors');
 var app = express();
 
+// 允许来自特定IP地址的请求
+const corsOptions = {
+  origin: 'http://1.94.6.107', // 或者 'http://1.94.6.107:5173' 如果你有特定端口
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // 根据需要添加其他HTTP方法
+  // allowedHeaders: ['Content-Type', 'Authorization'] // 根据需要添加其他头部
+};
+
+app.use(cors(corsOptions));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

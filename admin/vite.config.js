@@ -9,6 +9,9 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Inspect from 'vite-plugin-inspect'
 // https://vite.dev/config/
 export default defineConfig({
+  assetsDir:'static',
+  parallel:false,
+  publicPath:'./',
   plugins: [
     vue(),
     AutoImport({
@@ -52,7 +55,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/adminapi': {
-        target: 'http://localhost:3000',
+        target: 'http://1.94.6.107:3000',
         changeOrigin: true,
         secure: false, // 如果是https接口，需要配置这个参数
         // rewrite: (path) => path.replace(/^\/adminapi/, '')
