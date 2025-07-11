@@ -13,7 +13,7 @@ onMounted(async () => {
         <el-carousel-item v-for="item in looplist" :key="item._id">
             <div class="content">
                 <!-- <h3 justify="center">{{ item.title }}</h3> -->
-                <div class="bg" :style="{ backgroundImage: `url(http://localhost:3000${item.cover})` }">
+                <div class="bg" :style="{ backgroundImage: `url(http://1.94.6.107:3000${item.cover})` }">
                     <el-card style="width: 30%; height: 100%; background-color: rgba(255, 255, 255, .7);" shadow="hover">
                         <template #header>
                             <h2>{{ item.title }}</h2>

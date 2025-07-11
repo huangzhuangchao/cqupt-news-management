@@ -8,7 +8,7 @@ const emits = defineEmits(["fileChange"])
 
 //用于上传头像后，显示头像
 const uploadAvatar = computed(() => {
-    return props.avatar.includes("blob") ? props.avatar : `http://localhost:3000/` + props.avatar
+    return props.avatar.includes("blob") ? props.avatar : `http://1.94.6.107:3000/` + props.avatar
 })
 const handleChange = (file) =>{
     emits("fileChange", file.raw)

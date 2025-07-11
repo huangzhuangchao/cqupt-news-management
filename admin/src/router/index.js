@@ -13,16 +13,17 @@ const router = createRouter({
       name: 'login',
       component: Login
     },
-    {
-      path: '/mainbox',
-      name: 'mainbox',
-      component: MainBox
-    },
+    // {
+    //   path: '/mainbox',
+    //   name: 'mainbox',
+    //   component: MainBox
+    // },
     //mainbox得嵌套路由，后面根据权限动态添加
   ]
 })
 
 const configRouter = (getterStore)=>{
+  console.log(111)
   if(!router.hasRoute("mainbox")){
     router.addRoute({
       path: '/mainbox',
@@ -46,8 +47,7 @@ const checkPermission = (item)=>{
 //每次路由跳转之前执行
 router.beforeEach((to, from, next) =>{
   const getterStore = useGetterRouterSrore()
-  if(to.name === "login"){
-    // getterStore.changeGetterRouter(false) //每次跳转到login需要改为false，这样每次登录进去才会渲染一遍权限控制的方法。优化一下，在登录成功时置为false
+  if(to.name === "login"){  // getterStore.changeGetterRouter(false) //每次跳转到login需要改为false，这样每次登录进去才会渲染一遍权限控制的方法。优化一下，在登录成功时置为false
     next()
   }else{
     // 如果授权（已经登录过了） next（）
@@ -58,7 +58,6 @@ router.beforeEach((to, from, next) =>{
       })
     }else{
       if(!getterStore.isGetterRouter){
-
         //删除所有嵌套路由，路由不好删就删mainbox
         router.removeRoute("mainbox")
          //本地存储登录信息后，第一次登录时

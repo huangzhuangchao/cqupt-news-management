@@ -28,7 +28,6 @@ const handleChange = (file) => {
     userForm.avatar = URL.createObjectURL(file)
     userForm.file = file
     console.log(userForm.avatar);
-
 }
 //提交更新
 const submitForm = () => {

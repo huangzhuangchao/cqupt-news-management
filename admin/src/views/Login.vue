@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
 import logo from '@/assets/images/logo.png'
@@ -80,10 +80,9 @@ const options = {
     },
     detectRetina: true
 }
-
 const loginForm = reactive({
-    username: '',
-    password: ''
+    username: 'admin',
+    password: '123@Hzc666'
 }) // 表单绑定的响应式对象
 const loginFormRef = ref() // 表单的引用对象
 

@@ -68,7 +68,7 @@ const handleDelete = async (index, data) => {
                 <el-table-column label="头像">
                     <template #default="scope">
                         <div v-if="scope.row.avatar">
-                            <el-avatar :src="`http://localhost:3000` + scope.row.avatar" />
+                            <el-avatar :src="`http://1.94.6.107:3000` + scope.row.avatar" />
                         </div>
                         <div v-else>
                             <el-avatar src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" />
