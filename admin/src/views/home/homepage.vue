@@ -65,7 +65,7 @@ onMounted(async ()=>{
             <!-- 走马灯 -->
             <el-carousel :interval="4000" type="card" height="400" v-if="loopData.length">
                 <el-carousel-item v-for="item in loopData" :key="item._id">
-                    <div :style="{backgroundImage:`url(http://localhost:3000${item.cover})`, backgroundSize:'cover'}">
+                    <div :style="{backgroundImage:`url(http://1.94.6.107:3000${item.cover})`, backgroundSize:'cover'}">
                         <h3  justify="center">{{ item.title }}</h3>
                     </div>
                 </el-carousel-item>
