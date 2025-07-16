@@ -11,7 +11,7 @@ UserRouter.get("/adminapi/user/list", UserController.userList)
 UserRouter.delete("/adminapi/user/list/:id", UserController.delUser)
 UserRouter.get("/adminapi/user/list/:id", UserController.userList)
 UserRouter.put("/adminapi/user/list/:id", UserController.putUser)
-
+UserRouter.get("/adminapi/user/refresh", UserController.refresh)
 
 
 

@@ -16,8 +16,6 @@ onMounted(async () => {
     newsList.value = res.data.data
     console.log(newsList.value);
     // console.log(_.groupBy(newsList.value, item=>item.category));
-
-
 })
 moment.locale("zh-CN")
 const whichTime = time => {

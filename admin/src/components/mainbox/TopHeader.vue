@@ -11,7 +11,8 @@ const handleCenter = ()=>{
     router.push('/center')
 }
 const exit = ()=>{
-    localStorage.removeItem("token")
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
     userInfoStore.clearUserInfo();
     router.push('/login')
 }

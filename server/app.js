@@ -31,7 +31,8 @@ app.use(webProductRouter)
 app.use((req, res, next)=>{
   //如果token有效就next，否则返回401
   console.log(req.url);
-  if("/adminapi/user/login" == req.url){
+  // 放行这个地址："/adminapi/user/refresh:token"
+  if("/adminapi/user/login" == req.url || req.url.includes("/adminapi/user/refresh")){
     next()
     return;
   }
@@ -42,13 +43,13 @@ app.use((req, res, next)=>{
       const newToken = JWT.generate({
         _id:payload._id,
         username:payload.username
-      }, "2h")
+      }, "10s")
       res.header("Authorization", newToken)
       next()
     }else{
       res.status(401).send({
         errCode:"-1",
-        errorInfo:"token已过期"
+        errorInfo:"accessToken已过期"
       })
     }
   }

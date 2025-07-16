@@ -104,15 +104,15 @@ const submitForm = () => {
             //设置token
             // localStorage.setItem("token", "sonian")
             axios.post("/adminapi/user/login", loginForm).then(res =>{
-               console.log(res.data );
+               console.log("res.data✈️", res.data );
 
                 if(res.data.ActionType == "OK"){
                     console.log(res.data.data, 666);
                     //将用户信息放到pinia
                     userInfoStore.changeUserInfo(res.data.data)
                     useGetterRouterSrore().changeGetterRouter(false)
+                    localStorage.setItem("refreshToken", res.data.refreshToken)
                     ElMessage.success("登录成功")
-
                     router.push("/home")
                 }else{
                     ElMessage.error('用户名或密码错误！')

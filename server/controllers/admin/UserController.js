@@ -1,6 +1,44 @@
 const UserService = require("../../services/admin/UserService")
 const JWT = require("../../util/JWT")
 const UserController = {
+
+    //新增刷新接口
+    refresh: async (req, res) => {
+        //拿到查询字符串中的token参数
+        //如果没有token参数，则返回错误
+        const token = req.query.refreshToken;
+        const result = JWT.verify(token);
+        console.log("🫱解密后的的token结果:", result);
+        if(result) {
+            const user = await UserService.refresh(result._id)
+            console.log("🫱查询到的用户信息:", user);
+
+            //如果token有效，则生成新的token
+            const accessToken = JWT.generate({
+                _id:user._id,
+                username:user.username
+            }, "10s")
+
+            const refreshToken = JWT.generate({
+                _id:user._id,
+            }, "7d")
+
+            res.header("Authorization", accessToken)
+            res.send({
+                ActionType: "OK",
+                data: {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken,
+                }
+            })
+        } else {
+             res.status(401).send({
+                errCode:"-1",
+                errorInfo:"refreshToken已过期"
+            })
+        }
+    },
+
     login: async (req, res)=>{
        const result = await UserService.login(req.body)
        
@@ -13,11 +51,17 @@ const UserController = {
             //console.log(result[0]);
         
             // 生成token，设置在header中 现已改到app中间件中
-            const token = JWT.generate({
+            const accessToken = JWT.generate({
                 _id:result[0]._id,
                 username:result[0].username
-            }, "2h")
-            res.header("Authorization", token)
+            }, "10s")
+
+            //生成refreshToken
+            const refreshToken = JWT.generate({
+                _id: result[0]._id,
+            }, "7d")
+
+            res.header("Authorization", accessToken)
             res.send({
                 ActionType:"OK",
                 data:{
@@ -26,7 +70,8 @@ const UserController = {
                     introduction:result[0].introduction, 
                     avatar:result[0].avatar, 
                     role:result[0].role 
-                }
+                },
+                refreshToken
             })
        }
     },

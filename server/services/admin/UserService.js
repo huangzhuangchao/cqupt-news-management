@@ -1,6 +1,13 @@
 const UserModel = require("../../models/UserModel")
 
 const UserService = {
+
+    refresh: async (_id) => {
+        console.log("refresh", _id)
+       //根据_id查询用户信息
+       return UserModel.findOne({_id}, ["username", "_id"])
+    },
+
     login: async ({username, password}) =>{
         return UserModel.find({username, password})
     },

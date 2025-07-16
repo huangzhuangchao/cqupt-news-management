@@ -52,7 +52,7 @@ router.beforeEach((to, from, next) =>{
   }else{
     // 如果授权（已经登录过了） next（）
     //未授权，重定向到login
-    if(!localStorage.getItem("token")){
+    if(!localStorage.getItem("accessToken")){
       next({
         path:"/login"
       })
